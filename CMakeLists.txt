@@ -15,14 +15,14 @@ option(BUILD_EXAMPLES "Build examples." ON)
 # FetchContent_MakeAvailable was added in CMake 3.14; simpler usage
 include(FetchContent)
 
-# Find SymEngine, SymEngine_DIR can be set by users in advance
-set(CMAKE_PREFIX_PATH ${SymEngine_DIR} ${CMAKE_PREFIX_PATH})
-find_package(SymEngine REQUIRED CONFIG
+# Find symengine, symengine_DIR can be set by users in advance
+set(CMAKE_PREFIX_PATH ${symengine_DIR} ${CMAKE_PREFIX_PATH})
+find_package(symengine REQUIRED CONFIG
              PATH_SUFFIXES lib/cmake/symengine cmake/symengine CMake/)
-message("SymEngine_DIR: " ${SymEngine_DIR})
-message("SymEngine version: " ${SymEngine_VERSION})
+message("symengine_DIR: " ${symengine_DIR})
+message("symengine version: " ${symengine_VERSION})
 
-# Use the same build mode and C++ flags of SymEngine
+# Use the same build mode and C++ flags of symengine
 set(CMAKE_BUILD_TYPE ${SYMENGINE_BUILD_TYPE})
 set(CMAKE_CXX_FLAGS_RELEASE ${SYMENGINE_CXX_FLAGS_RELEASE})
 set(CMAKE_CXX_FLAGS_DEBUG ${SYMENGINE_CXX_FLAGS_DEBUG})
@@ -45,7 +45,7 @@ endif()
 #    set(CMAKE_Fortran_MODULE_DIRECTORY ${PARENT_MODULE_DIR})
 #endif()
 
-# Include Tinned and SymEngine header file directories
+# Include Tinned and symengine header file directories
 set(TINNED_INCLUDE_DIRS ${LIB_TINNED_PATH}/include)
 include_directories(${TINNED_INCLUDE_DIRS} ${SYMENGINE_INCLUDE_DIRS})
 
