@@ -18,9 +18,20 @@ include(FetchContent)
 # Find symengine, symengine_DIR can be set by users in advance
 set(CMAKE_PREFIX_PATH ${symengine_DIR} ${CMAKE_PREFIX_PATH})
 find_package(symengine REQUIRED CONFIG
-             PATH_SUFFIXES lib/cmake/symengine cmake/symengine CMake/)
-message("symengine_DIR: " ${symengine_DIR})
-message("symengine version: " ${symengine_VERSION})
+             PATHS ${symengine_DIR} NO_DEFAULT_PATH)
+
+if(NOT symengine_FOUND)
+    # symengine not found, fetch and build it
+    message(STATUS "symengine not found locally. Fetching from repository...")
+    FetchContent_Declare(
+        symengine
+        GIT_REPOSITORY https://github.com/bingao/symengine.git
+        GIT_TAG main
+    )
+    FetchContent_MakeAvailable(symengine)
+else()
+    message(STATUS "Using local symengine from ${symengine_DIR}")
+endif()
 
 # Use the same build mode and C++ flags of symengine
 set(CMAKE_BUILD_TYPE ${SYMENGINE_BUILD_TYPE})
